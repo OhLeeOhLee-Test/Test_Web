@@ -1,287 +1,114 @@
-import React, { useEffect, useRef } from 'react';
+import React from 'react';
 
 export default function LoadingScreen() {
-  // 1. 리액트용 집게(ref) 준비
-  const personRef = useRef(null);
-  const hatRef = useRef(null);
-  const gearRef = useRef(null);
-  const boltRef = useRef(null);
-  const smileRef = useRef(null);
-  const noteRef = useRef(null);
-
-  // 2. 애니메이션 구동 로직 (화면이 켜질 때 한 번 실행)
-  useEffect(() => {
-    const HAT_START_Y = 0;
-    const HAT_PEAK_Y = 0;
-    const HAT_FINAL_Y = 92;
-
-    function setHatY(y) {
-      if (hatRef.current) hatRef.current.style.top = y + 'px';
-    }
-
-    function animate(fromY, toY, duration, easeFn, onDone) {
-      const start = performance.now();
-      function step(now) {
-        let t = Math.min((now - start) / duration, 1);
-        setHatY(fromY + (toY - fromY) * easeFn(t));
-        if (t < 1) requestAnimationFrame(step);
-        else if (onDone) onDone();
-      }
-      requestAnimationFrame(step);
-    }
-
-    function fallEase(t) {
-      return t * t * t;
-    }
-
-    const flashDur = 300;
-    let delay = 0;
-    const icons = [gearRef, boltRef, smileRef, noteRef];
-
-    // 아이콘 4개 순차적 깜빡임
-    icons.forEach((iconRef) => {
-      setTimeout(() => {
-        if (iconRef.current) iconRef.current.style.opacity = '1';
-      }, delay);
-      setTimeout(() => {
-        if (iconRef.current) iconRef.current.style.opacity = '0';
-      }, delay + flashDur);
-      delay += flashDur;
-    });
-
-    // 모자 던지기 및 사람 등장
-    setTimeout(() => {
-      if (hatRef.current) hatRef.current.style.opacity = '1';
-      setHatY(HAT_START_Y);
-
-      animate(
-        HAT_START_Y,
-        HAT_PEAK_Y,
-        1,
-        (t) => t,
-        () => {
-          setTimeout(() => {
-            if (personRef.current) personRef.current.style.opacity = '1';
-            animate(HAT_PEAK_Y, HAT_FINAL_Y, 480, fallEase, () => {
-              setHatY(HAT_FINAL_Y);
-            });
-          }, 60);
-        }
-      );
-    }, delay);
-  }, []);
-
-  // 3. 화면(UI) 렌더링
   return (
-    <div
-      style={{
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        height: '100vh',
-        backgroundColor: '#0d0d0d',
-      }}
-    >
-      <div style={{ position: 'relative', width: '160px', height: '240px' }}>
-        {/* 아이콘들 */}
-        <div
-          style={{
-            position: 'absolute',
-            left: '50%',
-            top: '60px',
-            transform: 'translateX(-50%)',
-          }}
-        >
-          <svg
-            ref={gearRef}
-            style={{ opacity: 0, position: 'absolute', left: 0, top: 0 }}
-            width="80"
-            height="80"
-            viewBox="0 0 80 80"
-          >
-            <g transform="translate(40,40)">
-              <circle r="12" fill="#888" stroke="#aaa" strokeWidth="1.5" />
-              <circle r="5" fill="#0d0d0d" />
-              {[0, 45, 90, 135, 180, 225, 270, 315].map((deg) => (
-                <rect
-                  key={deg}
-                  x="-5"
-                  y="-22"
-                  width="10"
-                  height="12"
-                  rx="2"
-                  fill="#888"
-                  stroke="#aaa"
-                  strokeWidth="1"
-                  transform={`rotate(${deg})`}
-                />
-              ))}
-            </g>
-          </svg>
-          <svg
-            ref={boltRef}
-            style={{ opacity: 0, position: 'absolute', left: 0, top: 0 }}
-            width="80"
-            height="80"
-            viewBox="0 0 80 80"
-          >
-            <polygon
-              points="44,4 24,44 38,44 36,76 56,36 42,36"
-              fill="#FFD700"
-              stroke="#FFA500"
-              strokeWidth="1.5"
-              strokeLinejoin="round"
-            />
-          </svg>
-          <svg
-            ref={smileRef}
-            style={{ opacity: 0, position: 'absolute', left: 0, top: 0 }}
-            width="80"
-            height="80"
-            viewBox="0 0 80 80"
-          >
-            <circle
-              cx="40"
-              cy="40"
-              r="34"
-              fill="#FFD700"
-              stroke="#FFA500"
-              strokeWidth="1.5"
-            />
-            <circle cx="28" cy="32" r="4" fill="#333" />
-            <circle cx="52" cy="32" r="4" fill="#333" />
-            <path
-              d="M22 48 Q40 66 58 48"
-              stroke="#333"
-              strokeWidth="3"
-              fill="none"
-              strokeLinecap="round"
-            />
-          </svg>
-          <svg
-            ref={noteRef}
-            style={{ opacity: 0, position: 'absolute', left: 0, top: 0 }}
-            width="80"
-            height="80"
-            viewBox="0 0 80 80"
-          >
-            <rect x="28" y="8" width="14" height="46" rx="3" fill="#aef" />
-            <rect x="40" y="8" width="14" height="46" rx="3" fill="#8cf" />
-            <rect x="24" y="48" width="16" height="16" rx="8" fill="#aef" />
-            <rect x="40" y="48" width="14" height="14" rx="7" fill="#8cf" />
-            <rect x="28" y="8" width="26" height="10" rx="3" fill="#cdf" />
+    <div style={{
+      display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
+      height: '100vh', backgroundColor: '#09090b', color: 'white', overflow: 'hidden', fontFamily: '"Helvetica Neue", sans-serif'
+    }}>
+      <style>
+        {`
+          /* 1. 아이콘 연속 홀로그램 팝업 애니메이션 */
+          @keyframes iconHologram {
+            0% { opacity: 0; transform: scale(0.5) translateY(20px); }
+            20% { opacity: 1; transform: scale(1.1) translateY(0); filter: drop-shadow(0 0 12px currentColor); }
+            80% { opacity: 1; transform: scale(1) translateY(0); filter: drop-shadow(0 0 4px currentColor); }
+            100% { opacity: 0; transform: scale(0.8) translateY(-20px); }
+          }
+
+          /* 2. 모자 투척 및 바운스 (스프링 효과) */
+          @keyframes hatThrow {
+            0% { opacity: 0; transform: translateY(-150px) rotate(-15deg) scale(0.8); }
+            30% { opacity: 1; transform: translateY(-180px) rotate(10deg) scale(1.1); } /* 최고점 */
+            65% { transform: translateY(0px) rotate(0deg) scale(1); } /* 머리에 안착 */
+            80% { transform: translateY(-15px) rotate(0deg) scale(1); } /* 통! 튕김 */
+            100% { opacity: 1; transform: translateY(0px) rotate(0deg) scale(1); } /* 최종 안착 */
+          }
+
+          /* 3. 실루엣 등장 */
+          @keyframes personFadeIn {
+            0% { opacity: 0; transform: translateY(30px); }
+            100% { opacity: 1; transform: translateY(0); }
+          }
+
+          /* 4. 철학을 담은 텍스트 등장 */
+          @keyframes textReveal {
+            0%, 60% { opacity: 0; letter-spacing: 0px; filter: blur(4px); }
+            100% { opacity: 1; letter-spacing: 4px; filter: blur(0px); }
+          }
+
+          .icon-base {
+            position: absolute; left: 50%; top: 30%;
+            margin-left: -32px; width: 64px; height: 64px;
+            opacity: 0;
+          }
+        `}
+      </style>
+
+      {/* 무대 세팅 */}
+      <div style={{ position: 'relative', width: '200px', height: '200px' }}>
+        
+        {/* 1. 톱니바퀴 (Engineering - Cyan) */}
+        <svg className="icon-base" style={{ animation: 'iconHologram 0.5s ease-out 0.1s forwards', color: '#00f0ff' }} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+          <circle cx="12" cy="12" r="3"></circle>
+          <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+        </svg>
+
+        {/* 2. 번개 (Energy/Software - Amber) */}
+        <svg className="icon-base" style={{ animation: 'iconHologram 0.5s ease-out 0.5s forwards', color: '#ffb800' }} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+          <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+        </svg>
+
+        {/* 3. 스마일/사람 (Design/Humanity - Purple) */}
+        <svg className="icon-base" style={{ animation: 'iconHologram 0.5s ease-out 0.9s forwards', color: '#b026ff' }} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+          <circle cx="12" cy="12" r="10"></circle>
+          <path d="M8 14s1.5 2 4 2 4-2 4-2"></path>
+          <line x1="9" y1="9" x2="9.01" y2="9"></line>
+          <line x1="15" y1="9" x2="15.01" y2="9"></line>
+        </svg>
+
+        {/* 4. 팔레트/노트 (Art/Creation - Emerald) */}
+        <svg className="icon-base" style={{ animation: 'iconHologram 0.5s ease-out 1.3s forwards', color: '#00ff88' }} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+          <path d="M12 20h9"></path>
+          <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path>
+        </svg>
+
+        {/* 사람 실루엣 (미니멀) */}
+        <div style={{
+          position: 'absolute', bottom: '0', left: '50%', marginLeft: '-40px',
+          animation: 'personFadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) 1.6s forwards', opacity: 0
+        }}>
+          <svg width="80" height="100" viewBox="0 0 80 100" fill="none" stroke="#ffffff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <circle cx="40" cy="20" r="14" fill="#111"></circle>
+            <path d="M20 90V60a20 20 0 0 1 40 0v30" fill="#111"></path>
           </svg>
         </div>
 
-        {/* 사람 */}
-        <div
-          ref={personRef}
-          style={{
-            position: 'absolute',
-            left: '50%',
-            top: '120px',
-            transform: 'translateX(-50%)',
-            opacity: 0,
-          }}
-        >
-          <svg width="80" height="120" viewBox="0 0 80 120">
-            <circle
-              cx="40"
-              cy="22"
-              r="18"
-              fill="#e8d5b0"
-              stroke="#c4a97a"
-              strokeWidth="1.5"
-            />
-            <ellipse
-              cx="40"
-              cy="90"
-              rx="26"
-              ry="32"
-              fill="#4a6fa5"
-              stroke="#3a5a8a"
-              strokeWidth="1.5"
-            />
-            <line
-              x1="14"
-              y1="75"
-              x2="2"
-              y2="108"
-              stroke="#4a6fa5"
-              strokeWidth="10"
-              strokeLinecap="round"
-            />
-            <line
-              x1="66"
-              y1="75"
-              x2="78"
-              y2="108"
-              stroke="#4a6fa5"
-              strokeWidth="10"
-              strokeLinecap="round"
-            />
-            <circle cx="33" cy="19" r="3" fill="#3a2a1a" />
-            <circle cx="47" cy="19" r="3" fill="#3a2a1a" />
-            <path
-              d="M33 30 Q40 36 47 30"
-              stroke="#c47a5a"
-              strokeWidth="2"
-              fill="none"
-              strokeLinecap="round"
-            />
-          </svg>
-        </div>
-
-        {/* 모자 */}
-        <div
-          ref={hatRef}
-          style={{
-            position: 'absolute',
-            left: '50%',
-            top: '0px',
-            transform: 'translateX(-50%)',
-            opacity: 0,
-          }}
-        >
-          <svg width="80" height="60" viewBox="0 0 80 60">
-            <ellipse
-              cx="40"
-              cy="52"
-              rx="36"
-              ry="8"
-              fill="#2a1f0e"
-              stroke="#4a3820"
-              strokeWidth="1.5"
-            />
-            <path
-              d="M16 52 Q18 28 40 20 Q62 28 64 52Z"
-              fill="#1a2f4a"
-              stroke="#2a4a6a"
-              strokeWidth="1.5"
-            />
-            <rect
-              x="14"
-              y="46"
-              width="52"
-              height="8"
-              rx="2"
-              fill="#8B7355"
-              stroke="#6a5a3a"
-              strokeWidth="1"
-            />
-            <path
-              d="M28 36 Q32 30 40 28 Q48 30 52 36"
-              stroke="#c4a020"
-              strokeWidth="2.5"
-              fill="none"
-              strokeLinecap="round"
-            />
-            <circle cx="40" cy="22" r="4" fill="#c4a020" />
-            <path d="M22 50 L20 42 L24 40 L26 48Z" fill="#1a2f4a" />
-            <path d="M58 50 L60 42 L56 40 L54 48Z" fill="#1a2f4a" />
+        {/* 모자 (미니멀 볼캡/페도라) */}
+        <div style={{
+          position: 'absolute', bottom: '68px', left: '50%', marginLeft: '-30px',
+          animation: 'hatThrow 0.8s cubic-bezier(0.5, -0.5, 0.2, 1.5) 1.5s forwards', opacity: 0
+        }}>
+          <svg width="60" height="40" viewBox="0 0 60 40" fill="#ffffff">
+            {/* 챙 */}
+            <rect x="5" y="25" width="50" height="4" rx="2"></rect>
+            {/* 머리통 부분 */}
+            <path d="M15 25 C 15 10, 20 5, 30 5 C 40 5, 45 10, 45 25 Z"></path>
           </svg>
         </div>
       </div>
+
+      {/* 세계관 텍스트 */}
+      <div style={{
+        marginTop: '20px', display: 'flex', flexDirection: 'column', alignItems: 'center',
+        animation: 'textReveal 2s cubic-bezier(0.16, 1, 0.3, 1) forwards'
+      }}>
+        <h2 style={{ fontSize: '18px', fontWeight: '500', margin: '0 0 8px 0', color: '#fff' }}>OhLeeOhLee</h2>
+        <p style={{ fontSize: '11px', color: '#888', margin: 0, textTransform: 'uppercase' }}>
+          Boundless Engineering & Design
+        </p>
+      </div>
+
     </div>
   );
 }
