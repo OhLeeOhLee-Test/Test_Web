@@ -3,26 +3,33 @@ import LoadingScreen from './LoadingScreen'; // 👈 1. 방금 만든 부품 가
 import './App.css';
 
 export default function App() {
-  // 👈 2. 로딩 상태를 관리하는 스위치 추가 (처음엔 무조건 true)
   const [isLoading, setIsLoading] = useState(true);
+  // ⭐️ 1. 페이드 아웃 신호를 통제할 스위치를 만듭니다.
+  const [isFadingOut, setIsFadingOut] = useState(false);
   const [currentView, setCurrentView] = useState('home');
 
-  // 👈 3. 타이머 세팅 (2.5초 뒤에 로딩 스위치를 끕니다)
   useEffect(() => {
-    const timer = setTimeout(() => {
+    // ⭐️ 2. 2.5초 뒤에 "이제 투명해져라!" 하고 신호를 보냅니다.
+    const fadeTimer = setTimeout(() => {
+      setIsFadingOut(true);
+    }, 2500);
+
+    // ⭐️ 3. 투명해질 시간(0.5초)을 벌어준 뒤, 3초가 되면 화면을 아예 치워버립니다.
+    const removeTimer = setTimeout(() => {
       setIsLoading(false);
-    }, 2500); // 2500ms = 2.5초 (친구분 애니메이션이 약 1.8초짜리라 살짝 여유를 둠)
+    }, 3000);
 
-    return () => clearTimeout(timer);
+    return () => {
+      clearTimeout(fadeTimer);
+      clearTimeout(removeTimer);
+    };
   }, []);
-
-  // 👈 4. 스위치가 켜져 있으면(로딩 중이면) 무조건 로딩 화면만 보여줌!
-  if (isLoading) {
-    return <LoadingScreen />;
-  }
 
   return (
     <div className="portfolio-container">
+      {/* ⭐️ 4. 로딩 화면에 isFadingOut 제어 신호선을 딱 연결해 줍니다! */}
+      {isLoading && <LoadingScreen isFadingOut={isFadingOut} />}
+
       {/* 상단 공통 헤더 모듈 */}
       <header className="top-header">
         <div className="header-content">
