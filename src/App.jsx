@@ -1,15 +1,35 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react'; // 👈 useEffect 추가
+import LoadingScreen from './LoadingScreen'; // 👈 1. 방금 만든 부품 가져오기
 import './App.css';
 
 export default function App() {
+  // 👈 2. 로딩 상태를 관리하는 스위치 추가 (처음엔 무조건 true)
+  const [isLoading, setIsLoading] = useState(true);
   const [currentView, setCurrentView] = useState('home');
+
+  // 👈 3. 타이머 세팅 (2.5초 뒤에 로딩 스위치를 끕니다)
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 2500); // 2500ms = 2.5초 (친구분 애니메이션이 약 1.8초짜리라 살짝 여유를 둠)
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  // 👈 4. 스위치가 켜져 있으면(로딩 중이면) 무조건 로딩 화면만 보여줌!
+  if (isLoading) {
+    return <LoadingScreen />;
+  }
 
   return (
     <div className="portfolio-container">
       {/* 상단 공통 헤더 모듈 */}
       <header className="top-header">
         <div className="header-content">
-          <h1 onClick={() => setCurrentView('home')} style={{cursor: 'pointer'}}>
+          <h1
+            onClick={() => setCurrentView('home')}
+            style={{ cursor: 'pointer' }}
+          >
             OhLeeOhLee
           </h1>
           <nav>
