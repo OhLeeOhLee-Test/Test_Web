@@ -18,7 +18,7 @@ body {
 }
 
 /* 2. 상단 헤더 (배경 무한대 확장) */
-.top-header-bg {
+.top-header {
   background-color: #111;
   width: 100%;
   /* 둥근 모서리는 화면 끝에 붙을 때 어색해서 제거했습니다 */
