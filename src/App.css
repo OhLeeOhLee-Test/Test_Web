@@ -7,37 +7,48 @@ body {
   overflow-y: scroll; /* 스크롤바 덜컥거림 방지 레일 확보 */
 }
 
+/* 새로운 앱 전체 래퍼 */
+.app-wrapper {
+  width: 100%;
+}
+
 .portfolio-container {
   max-width: 1000px;
   margin: 0 auto;
 }
 
-/* 2. 상단 헤더 */
-.top-header {
+/* 2. 상단 헤더 (배경 무한대 확장) */
+.top-header-bg {
+  background-color: #111;
+  width: 100%;
+  /* 둥근 모서리는 화면 끝에 붙을 때 어색해서 제거했습니다 */
+}
+
+/* 헤더 안의 내용물 (1000px로 정렬하여 아래 본문과 딱 맞물리게 함) */
+.header-content {
+  max-width: 1000px;
+  margin: 0 auto;
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 20px 40px;
-  background-color: #111;
-  color: white;
-  border-radius: 0 0 15px 15px;
+  box-sizing: border-box; /* 패딩을 1000px 안에 포함시킴 */
 }
 
-/* 로고 텍스트 강제 보정 (기본 설정 무시) */
-.top-header h1 {
+.header-content h1 {
   color: white !important;
   margin: 0;
   font-size: 28px;
 }
 
-.top-header nav span {
+.header-content nav span {
   margin-left: 20px;
   cursor: pointer;
   color: #aaa;
   transition: 0.2s;
 }
 
-.top-header nav span:hover {
+.header-content nav span:hover {
   color: white;
 }
 
@@ -57,7 +68,7 @@ body {
   background: white;
   border-radius: 10px;
   overflow: hidden;
-  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   cursor: pointer;
   transition: transform 0.2s;
 }
@@ -127,7 +138,7 @@ body {
   background: white;
   padding: 20px;
   border-radius: 10px;
-  box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
 }
 
 .engineering-log li {
@@ -136,15 +147,20 @@ body {
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* =========================================
    📱 5. 모바일 가변 프레임 (반응형 미디어 쿼리)
 ========================================= */
 @media screen and (max-width: 768px) {
-  
   /* 헤더 세로 정렬 */
   .top-header {
     flex-direction: column;

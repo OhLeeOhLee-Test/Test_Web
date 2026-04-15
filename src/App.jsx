@@ -8,16 +8,15 @@ export default function App() {
     <div className="portfolio-container">
       {/* 상단 공통 헤더 모듈 */}
       <header className="top-header">
-        <h1
-          onClick={() => setCurrentView('home')}
-          style={{ cursor: 'pointer' }}
-        >
-          OhLeeOhLee
-        </h1>
-        <nav>
-          <span onClick={() => setCurrentView('home')}>Projects</span>
-          <span>Contact</span>
-        </nav>
+        <div className="header-content">
+          <h1 onClick={() => setCurrentView('home')} style={{cursor: 'pointer'}}>
+            OhLeeOhLee
+          </h1>
+          <nav>
+            <span onClick={() => setCurrentView('home')}>Projects</span>
+            <span>Contact</span>
+          </nav>
+        </div>
       </header>
 
       {/* 메인 화면 */}
