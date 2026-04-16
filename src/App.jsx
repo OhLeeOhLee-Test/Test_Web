@@ -1,203 +1,66 @@
-import React, { useState, useEffect } from 'react';
-import { BrowserRouter, Routes, Route, useNavigate } from 'react-router-dom'; // 👈 라우터 부품들 가져오기
+import React, { useState, useEffect } from 'react'; /* 👈 useEffect 추가! */
+import { BrowserRouter, Routes, Route, useNavigate } from 'react-router-dom';
+import Home from './pages/Home';
+import Punggyeong from './pages/Punggyeong';
+import Contact from './pages/Contact';
 import LoadingScreen from './LoadingScreen';
-import StlViewer from './StlViewer';
 import './App.css';
 
-// ⚙️ 1. 메인 공장 로직 (여기에 레일을 깔아줍니다)
-export default function App() {
-  return (
-    <BrowserRouter basename="/Test_Web/">
-      <AppContent />
-    </BrowserRouter>
-  );
-}
-
-// ⚙️ 2. 실제 화면 조립 라인
 function AppContent() {
-  const [isLoading, setIsLoading] = useState(true);
-  const [isFadingOut, setIsFadingOut] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-
-  // ⭐️ currentView 스위치 대신, "이 주소로 이동해라!"라고 명령하는 내비게이션 기계를 씁니다.
+  const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
 
   useEffect(() => {
-    const fadeTimer = setTimeout(() => setIsFadingOut(true), 2500);
-    const removeTimer = setTimeout(() => setIsLoading(false), 3000);
-    return () => {
-      clearTimeout(fadeTimer);
-      clearTimeout(removeTimer);
-    };
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 2500); // 2초 후 실행
+    return () => clearTimeout(timer);
   }, []);
 
-  // 화면 이동과 동시에 햄버거 메뉴를 닫아주는 함수
   const goTo = (path) => {
     navigate(path);
     setIsMenuOpen(false);
   };
 
+  if (isLoading) {
+    return <LoadingScreen />;
+  }
+
   return (
     <div className="app-wrapper">
-      {isLoading && <LoadingScreen isFadingOut={isFadingOut} />}
-
-      {/* ⭐️ 공통 헤더: 화면이 바뀌어도 지붕은 항상 그 자리에 있습니다. */}
-      <header className="top-header-bg">
-        <div className="header-content">
-          <h1 onClick={() => goTo('/')} style={{ cursor: 'pointer' }}>
-            OhLeeOhLee
-          </h1>
-
-          <div
-            className="hamburger-btn"
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
-          >
-            <svg
-              viewBox="0 0 24 24"
-              width="32"
-              height="32"
-              stroke="currentColor"
-              strokeWidth="2"
-              fill="none"
-            >
-              {isMenuOpen ? (
-                <path d="M18 6L6 18M6 6l12 12" />
-              ) : (
-                <path d="M3 12h18M3 6h18M3 18h18" />
-              )}
-            </svg>
-          </div>
-
-          <nav className={`main-nav ${isMenuOpen ? 'open' : ''}`}>
-            <span onClick={() => goTo('/')}>PROJECTS</span>
-            <span onClick={() => goTo('/contact')}>CONTACT</span>
-            <span
-              onClick={() => setIsMenuOpen(false)}
-              style={{ fontSize: '14px', marginTop: '40px', color: '#555' }}
-            >
-              CLOSE
-            </span>
-          </nav>
+      <header className="main-header">
+        <div className="logo" onClick={() => goTo('/')}>
+          OHLEEOHLEE
+        </div>
+        <div
+          className="menu-trigger"
+          onClick={() => setIsMenuOpen(!isMenuOpen)}
+        >
+          {isMenuOpen ? 'CLOSE' : 'MENU'}
         </div>
       </header>
 
-      {/* ⭐️ 본문 영역: 주소에 따라 내용물이 갈아 끼워지는 '무대'입니다. */}
+      <nav className={`main-nav ${isMenuOpen ? 'open' : ''}`}>
+        <span onClick={() => goTo('/')}>PROJECTS</span>
+        <span onClick={() => goTo('/contact')}>CONTACT</span>
+      </nav>
+
       <div className="portfolio-container">
         <Routes>
-          {/* 주소가 '/' (메인) 일 때 보여줄 화면 */}
-          <Route
-            path="/"
-            element={
-              <main className="gallery-view">
-                <h2>Engineering Portfolio</h2>
-                <div className="grid-container">
-                  {/* 1. 풍경풍경 프로젝트 카드 */}
-                  <div
-                    className="project-card"
-                    onClick={() => goTo('/punggyeong')}
-                  >
-                    <div className="featured-3d-bracket">
-                      {/* 자동회전 ON, 조작 OFF, 크기 살짝 작게 */}
-                      <StlViewer
-                        autoRotate={true}
-                        controls={false}
-                        scale={0.02}
-                      />
-                    </div>
-
-                    <div className="card-text">
-                      <h3>풍경풍경 (Cloud Bell)</h3>
-                      <p>날씨 반응형 스마트 풍경</p>
-                    </div>
-                  </div>
-
-                  <div className="project-card disabled">
-                    <div className="card-image">⏳</div>
-                    <div className="card-text">
-                      <h3>Project 02</h3>
-                      <p>준비 중</p>
-                    </div>
-                  </div>
-                </div>
-              </main>
-            }
-          />
-
-          {/* 주소가 '/punggyeong' 일 때 보여줄 화면 */}
-          <Route
-            path="/punggyeong"
-            element={
-              <main className="detail-view">
-                <button className="back-btn" onClick={() => goTo('/')}>
-                  ← 뒤로 가기
-                </button>
-                <h2>풍경풍경 (Cloud Bell)</h2>
-                <div className="specs-container">
-                  <div className="detail-3d-container">
-                    {/* ⭐️ 상세: 자동회전 OFF, 직접 조작 ON */}
-                    <StlViewer
-                      autoRotate={false}
-                      controls={true}
-                      scale={0.02}
-                    />
-                  </div>
-                  <div className="engineering-log">
-                    <h3>⚙️ Engineering Specs</h3>
-                    <ul>
-                      <li>
-                        <strong>Mechanism:</strong> 1-DOF 3층 적층 구조 설계
-                      </li>
-                      <li>
-                        <strong>Actuator:</strong> 서보모터 1개를 활용한 제어
-                        최적화 및 배선 최소화
-                      </li>
-                      <li>
-                        <strong>Design Challenge:</strong> 2.5mm 캐노피 두께를
-                        고려한 모듈 1.0 이하 정밀 랙 앤 피니언 적용
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-              </main>
-            }
-          />
-
-          {/* ⭐️ 새로 추가할 Contact 페이지 */}
-          <Route
-            path="/contact"
-            element={
-              <main className="contact-view">
-                <button className="back-btn" onClick={() => goTo('/')}>
-                  ← 홈으로
-                </button>
-                <h2>Profile & Contact</h2>
-
-                <div className="profile-section">
-                  <h3>OhLeeOhLee</h3>
-                  <p className="subtitle">Mechanical & Aerospace Engineering</p>
-
-                  <div className="contact-card">
-                    <div className="contact-item">
-                      <span className="label">Interest</span>
-                      <span className="value">
-                        Fluid Dynamics (Drop Impact Physics), Pure Mathematics
-                      </span>
-                    </div>
-                    <div className="contact-item">
-                      <span className="label">Email</span>
-                      <span className="value">your.email@example.com</span>
-                    </div>
-                    <div className="contact-item">
-                      <span className="label">GitHub</span>
-                      <span className="value">github.com/OhLeeOhLee</span>
-                    </div>
-                  </div>
-                </div>
-              </main>
-            }
-          />
+          <Route path="/" element={<Home />} />
+          <Route path="/punggyeong" element={<Punggyeong />} />
+          <Route path="/contact" element={<Contact />} />
         </Routes>
       </div>
     </div>
+  );
+}
+
+export default function App() {
+  return (
+    <BrowserRouter basename="/Test_Web/">
+      <AppContent />
+    </BrowserRouter>
   );
 }
