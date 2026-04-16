@@ -96,12 +96,10 @@ function AppContent() {
                     className="project-card"
                     onClick={() => goTo('/punggyeong')}
                   >
-                    {/* ⭐️ [핵심 개조] 👇 기존의 <div className="card-image">☁️ 3D Render View</div> 부분을 지우고 이걸 넣습니다. 👇 */}
                     <div className="featured-3d-bracket">
-                      {/* ⭐️ 메인: 자동회전 ON, 직접 조작 OFF */}
-                        <StlViewer autoRotate={true} controls={false} />
-                      </div>
-                    {/* 👆 ========================================================================= 👆 */}
+                      {/* 자동회전 ON, 조작 OFF, 크기 살짝 작게 */}
+                      <StlViewer autoRotate={true} controls={false} scale={0.02}/>
+                    </div>
 
                     <div className="card-text">
                       <h3>풍경풍경 (Cloud Bell)</h3>
@@ -133,7 +131,7 @@ function AppContent() {
                 <div className="specs-container">
                 <div className="detail-3d-container">
                   {/* ⭐️ 상세: 자동회전 OFF, 직접 조작 ON */}
-                  <StlViewer autoRotate={false} controls={true} />
+                  <StlViewer autoRotate={false} controls={true} scale={0.02}/>
                 </div>
                   <div className="engineering-log">
                     <h3>⚙️ Engineering Specs</h3>
