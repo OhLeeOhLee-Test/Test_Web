@@ -70,7 +70,7 @@ function AppContent() {
 
           <nav className={`main-nav ${isMenuOpen ? 'open' : ''}`}>
             <span onClick={() => goTo('/')}>PROJECTS</span>
-            <span onClick={() => setIsMenuOpen(false)}>CONTACT</span>
+            <span onClick={() => goTo('/contact')}>CONTACT</span>
             <span
               onClick={() => setIsMenuOpen(false)}
               style={{ fontSize: '14px', marginTop: '40px', color: '#555' }}
@@ -156,6 +156,41 @@ function AppContent() {
                         고려한 모듈 1.0 이하 정밀 랙 앤 피니언 적용
                       </li>
                     </ul>
+                  </div>
+                </div>
+              </main>
+            }
+          />
+
+          {/* ⭐️ 새로 추가할 Contact 페이지 */}
+          <Route
+            path="/contact"
+            element={
+              <main className="contact-view">
+                <button className="back-btn" onClick={() => goTo('/')}>
+                  ← 홈으로
+                </button>
+                <h2>Profile & Contact</h2>
+
+                <div className="profile-section">
+                  <h3>OhLeeOhLee</h3>
+                  <p className="subtitle">Mechanical & Aerospace Engineering</p>
+
+                  <div className="contact-card">
+                    <div className="contact-item">
+                      <span className="label">Interest</span>
+                      <span className="value">
+                        Fluid Dynamics (Drop Impact Physics), Pure Mathematics
+                      </span>
+                    </div>
+                    <div className="contact-item">
+                      <span className="label">Email</span>
+                      <span className="value">your.email@example.com</span>
+                    </div>
+                    <div className="contact-item">
+                      <span className="label">GitHub</span>
+                      <span className="value">github.com/OhLeeOhLee</span>
+                    </div>
                   </div>
                 </div>
               </main>

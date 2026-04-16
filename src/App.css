@@ -196,6 +196,64 @@ body {
   line-height: 1.5;
 }
 
+/* --- Contact 페이지 --- */
+.contact-view {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 40px 20px;
+  color: white;
+}
+
+.profile-section {
+  background-color: #111;
+  padding: 40px;
+  border-radius: 12px;
+  border: 1px solid #333;
+  margin-top: 30px;
+}
+
+.profile-section h3 {
+  font-size: 28px;
+  margin-bottom: 5px;
+  letter-spacing: 2px;
+}
+
+.profile-section .subtitle {
+  color: #888;
+  font-size: 16px;
+  margin-bottom: 40px;
+}
+
+.contact-card {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.contact-item {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #222;
+}
+
+.contact-item:last-child {
+  border-bottom: none;
+}
+
+.contact-item .label {
+  color: #555;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.contact-item .value {
+  color: #eee;
+  font-size: 18px;
+}
+
 @keyframes fadeIn {
   from {
     opacity: 0;
