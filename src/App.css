@@ -166,10 +166,12 @@ body {
   color: white;
 }
 
+/* App.css 내부 */
 .specs-container {
   display: flex;
-  gap: 30px;
-  margin-top: 20px;
+  flex-direction: column; /* 👈 이 줄을 추가(또는 수정)하면 아래로 내려갑니다! */
+  gap: 30px; /* 뷰어와 글씨 사이의 간격 */
+  width: 100%;
 }
 
 .cad-viewer-placeholder {

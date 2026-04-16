@@ -53,7 +53,7 @@ export default function StlViewer({
         />
 
         {/* 주변 환경 반사광을 추가해 광택을 더 살려줍니다. */}
-        <Environment preset="city" />
+        <Environment preset="studio" />
 
         <Suspense fallback={<Html center></Html>}>
           <Center>
