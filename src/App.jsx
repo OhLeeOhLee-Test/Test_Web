@@ -6,7 +6,7 @@ import './App.css';
 // ⚙️ 1. 메인 공장 로직 (여기에 레일을 깔아줍니다)
 export default function App() {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename="/Test_Web/">
       <AppContent />
     </BrowserRouter>
   );
