@@ -40,7 +40,7 @@ export default function StlViewer({ autoRotate = false, controls = true }) {
         {/* ⭐️ 입체감을 위한 보조 조명 (반대편) */}
         <pointLight position={[-5, 5, -5]} intensity={0.8} />
 
-        <Suspense fallback={<Html center><span style={{color:'white'}}>Loading...</span></Html>}>
+        <Suspense fallback={<Html center></Html>}>
           <Center top>
             <DuckModel />
           </Center>
