@@ -8,6 +8,9 @@ export default function App() {
   const [isFadingOut, setIsFadingOut] = useState(false);
   const [currentView, setCurrentView] = useState('home');
 
+  // ⭐️ 1. 햄버거 메뉴가 열렸는지(true) 닫혔는지(false) 기억하는 스위치 추가!
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
   useEffect(() => {
     // ⭐️ 2. 2.5초 뒤에 "이제 투명해져라!" 하고 신호를 보냅니다.
     const fadeTimer = setTimeout(() => {
@@ -31,17 +34,56 @@ export default function App() {
       {isLoading && <LoadingScreen isFadingOut={isFadingOut} />}
 
       {/* 상단 공통 헤더 모듈 */}
-      <header className="top-header">
+      <header className="top-header-bg">
         <div className="header-content">
           <h1
-            onClick={() => setCurrentView('home')}
+            onClick={() => {
+              setCurrentView('home');
+              setIsMenuOpen(false);
+            }}
             style={{ cursor: 'pointer' }}
           >
             OhLeeOhLee
           </h1>
-          <nav>
-            <span onClick={() => setCurrentView('home')}>Projects</span>
-            <span>Contact</span>
+
+          {/* 햄버거 아이콘 (열려있을 때 모양을 바꾸는 연출도 가능합니다) */}
+          <div
+            className="hamburger-btn"
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+          >
+            <svg
+              viewBox="0 0 24 24"
+              width="32"
+              height="32"
+              stroke="currentColor"
+              strokeWidth="2"
+              fill="none"
+            >
+              {isMenuOpen ? (
+                <path d="M18 6L6 18M6 6l12 12" /> // X 모양 (닫기)
+              ) : (
+                <path d="M3 12h18M3 6h18M3 18h18" /> // 햄버거 모양
+              )}
+            </svg>
+          </div>
+
+          {/* 사이드바 메뉴 */}
+          <nav className={`main-nav ${isMenuOpen ? 'open' : ''}`}>
+            <span
+              onClick={() => {
+                setCurrentView('home');
+                setIsMenuOpen(false);
+              }}
+            >
+              PROJECTS
+            </span>
+            <span onClick={() => setIsMenuOpen(false)}>CONTACT</span>
+            <span
+              onClick={() => setIsMenuOpen(false)}
+              style={{ fontSize: '14px', marginTop: '40px', color: '#555' }}
+            >
+              CLOSE
+            </span>
           </nav>
         </div>
       </header>

@@ -18,7 +18,7 @@ body {
 }
 
 /* 2. 상단 헤더 (배경 무한대 확장) */
-.top-header {
+.top-header-bg {
   background-color: #111;
   width: 100%;
   /* 둥근 모서리는 화면 끝에 붙을 때 어색해서 제거했습니다 */
@@ -33,6 +33,56 @@ body {
   align-items: center;
   padding: 20px 40px;
   box-sizing: border-box; /* 패딩을 1000px 안에 포함시킴 */
+  position: relative; /* ⭐️ 메뉴판이 이 상자를 기준으로 펼쳐지도록 기준점 설정 */
+}
+
+/* ⭐️ 햄버거 버튼: 이제 PC/모바일 구분 없이 무조건 보입니다! */
+.hamburger-btn {
+  display: block;
+  cursor: pointer;
+  color: white;
+  transition: transform 0.2s;
+  z-index: 1000;
+}
+
+.hamburger-btn:hover {
+  transform: scale(1.1);
+}
+
+/* ⭐️ 네비게이션 메뉴: 이제 모든 환경에서 기본적으로 숨겨진 '풀다운' 형식입니다. */
+.main-nav {
+  position: fixed; /* 화면 전체를 기준으로 배치 */
+  top: 0;
+  right: -100%; /* 처음엔 화면 오른쪽 바깥에 숨김 */
+  width: 300px; /* PC에서는 적당한 너비의 사이드바 형태 */
+  height: 100vh;
+  background-color: rgba(17, 17, 17, 0.95); /* 약간 투명한 검정 */
+  backdrop-filter: blur(10px); /* 배경 흐림 효과로 고급스럽게 */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  transition: right 0.4s cubic-bezier(0.16, 1, 0.3, 1); /* 부드러운 슬라이딩 */
+  box-shadow: -5px 0 15px rgba(0, 0, 0, 0.3);
+  z-index: 999; /* 👈 핵심! Project 02 카드가 뚫고 나오지 못하게 강철판을 깔아줍니다 */
+}
+
+/* ⭐️ 메뉴가 열렸을 때 (isMenuOpen이 true가 되면 이 클래스가 붙음) */
+.main-nav.open {
+  right: 0; /* 화면 안으로 슥 들어옴 */
+}
+
+.main-nav span {
+  margin: 20px 0;
+  font-size: 24px;
+  color: #aaa;
+  cursor: pointer;
+  transition: 0.3s;
+  letter-spacing: 2px;
+}
+
+.main-nav span:hover {
+  color: white;
 }
 
 .header-content h1 {
@@ -161,6 +211,26 @@ body {
    📱 5. 모바일 가변 프레임 (반응형 미디어 쿼리)
 ========================================= */
 @media screen and (max-width: 768px) {
+  /* ⭐️ 1. 모바일에서는 햄버거 버튼을 보여줌! */
+  .hamburger-btn {
+    display: block;
+  }
+
+  /* ⭐️ 2. 기존 가로 메뉴판은 숨기고, 세로형 폴딩 도어로 변신시킴 */
+  .main-nav {
+    width: 100%; /* 모바일은 전체 화면 차지 */
+  }
+
+  /* ⭐️ 3. 아까 리액트 스위치가 켜져서 'open' 이름표가 붙으면 짜잔! 하고 나타남 */
+  .main-nav.open {
+    display: flex;
+  }
+
+  .main-nav span {
+    margin: 15px 0;
+    font-size: 18px;
+  }
+
   /* 헤더 세로 정렬 */
   .top-header {
     flex-direction: column;
