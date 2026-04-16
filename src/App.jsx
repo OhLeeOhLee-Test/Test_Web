@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter, Routes, Route, useNavigate } from 'react-router-dom'; // 👈 라우터 부품들 가져오기
 import LoadingScreen from './LoadingScreen';
+import StlViewer from './StlViewer';
 import './App.css';
 
 // ⚙️ 1. 메인 공장 로직 (여기에 레일을 깔아줍니다)
@@ -122,9 +123,7 @@ function AppContent() {
                 </button>
                 <h2>풍경풍경 (Cloud Bell)</h2>
                 <div className="specs-container">
-                  <div className="cad-viewer-placeholder">
-                    [ CATIA 3D 모델링 이미지 / 구동 영상 자리 ]
-                  </div>
+                  <StlViewer />
                   <div className="engineering-log">
                     <h3>⚙️ Engineering Specs</h3>
                     <ul>
