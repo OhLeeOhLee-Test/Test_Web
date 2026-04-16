@@ -91,16 +91,24 @@ function AppContent() {
               <main className="gallery-view">
                 <h2>Engineering Portfolio</h2>
                 <div className="grid-container">
+                  {/* 1. 풍경풍경 프로젝트 카드 */}
                   <div
                     className="project-card"
                     onClick={() => goTo('/punggyeong')}
                   >
-                    <div className="card-image">☁️ 3D Render View</div>
+                    {/* ⭐️ [핵심 개조] 👇 기존의 <div className="card-image">☁️ 3D Render View</div> 부분을 지우고 이걸 넣습니다. 👇 */}
+                    <div className="featured-3d-bracket">
+                      {/* ⭐️ 메인: 자동회전 ON, 직접 조작 OFF */}
+                        <StlViewer autoRotate={true} controls={false} />
+                      </div>
+                    {/* 👆 ========================================================================= 👆 */}
+
                     <div className="card-text">
                       <h3>풍경풍경 (Cloud Bell)</h3>
                       <p>날씨 반응형 스마트 풍경</p>
                     </div>
                   </div>
+
                   <div className="project-card disabled">
                     <div className="card-image">⏳</div>
                     <div className="card-text">
@@ -123,7 +131,10 @@ function AppContent() {
                 </button>
                 <h2>풍경풍경 (Cloud Bell)</h2>
                 <div className="specs-container">
-                  <StlViewer />
+                <div className="detail-3d-container">
+                  {/* ⭐️ 상세: 자동회전 OFF, 직접 조작 ON */}
+                  <StlViewer autoRotate={false} controls={true} />
+                </div>
                   <div className="engineering-log">
                     <h3>⚙️ Engineering Specs</h3>
                     <ul>

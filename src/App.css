@@ -257,3 +257,43 @@ body {
     height: 250px;
   }
 }
+
+/* 메인 화면 3D 뷰어 전용 브래킷 (양식 깨짐 방지 용접) */
+.featured-3d-bracket {
+  width: 100%;
+  height: 250px; /* 카드의 이미지 영역 높이를 고정 */
+  position: relative;
+  overflow: hidden;
+  border-radius: 8px 8px 0 0; /* 카드 상단 모서리 둥글게 */
+}
+
+/* 3D 뷰어 위에 살짝 뜨는 라벨 */
+.viewer-label {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  background-color: rgba(0, 0, 0, 0.6);
+  color: #aaa;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 11px;
+  letter-spacing: 1px;
+  pointer-events: none; /* 마우스 클릭 통과 */
+}
+
+/* 풍경풍경 페이지 전용 3D 컨테이너 */
+.detail-3d-container {
+  width: 100%;
+  height: 600px; /* 👈 기존보다 훨씬 크게 조절 */
+  margin-bottom: 30px;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid #333;
+}
+
+/* 모바일에서는 화면 높이에 맞춰 적절히 줄어들게 설정 */
+@media screen and (max-width: 768px) {
+  .detail-3d-container {
+    height: 400px;
+  }
+}
