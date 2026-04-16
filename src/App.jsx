@@ -98,7 +98,11 @@ function AppContent() {
                   >
                     <div className="featured-3d-bracket">
                       {/* 자동회전 ON, 조작 OFF, 크기 살짝 작게 */}
-                      <StlViewer autoRotate={true} controls={false} scale={0.02}/>
+                      <StlViewer
+                        autoRotate={true}
+                        controls={false}
+                        scale={0.02}
+                      />
                     </div>
 
                     <div className="card-text">
@@ -129,10 +133,14 @@ function AppContent() {
                 </button>
                 <h2>풍경풍경 (Cloud Bell)</h2>
                 <div className="specs-container">
-                <div className="detail-3d-container">
-                  {/* ⭐️ 상세: 자동회전 OFF, 직접 조작 ON */}
-                  <StlViewer autoRotate={false} controls={true} scale={0.02}/>
-                </div>
+                  <div className="detail-3d-container">
+                    {/* ⭐️ 상세: 자동회전 OFF, 직접 조작 ON */}
+                    <StlViewer
+                      autoRotate={false}
+                      controls={true}
+                      scale={0.02}
+                    />
+                  </div>
                   <div className="engineering-log">
                     <h3>⚙️ Engineering Specs</h3>
                     <ul>

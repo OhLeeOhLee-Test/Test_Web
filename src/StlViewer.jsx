@@ -4,7 +4,7 @@ import { OrbitControls, Html, Center, Environment } from '@react-three/drei';
 import { STLLoader } from 'three/examples/jsm/loaders/STLLoader';
 
 // 🦆 오리 모델 부품
-function DuckModel({ scale = 0.01, position = [0,-1,0]}) {
+function DuckModel({ scale = 0.01 }) {
   const fileUrl = import.meta.env.BASE_URL + 'RubberDuck.stl';
   const geometry = useLoader(STLLoader, fileUrl);
 
@@ -12,7 +12,6 @@ function DuckModel({ scale = 0.01, position = [0,-1,0]}) {
     <mesh
       geometry={geometry}
       scale={scale}
-      position={position}
       // ⭐️ 1. 오리 세우기: X축으로 -90도(-Math.PI / 2) 회전시켜 Y-up 좌표계에 맞춥니다.
       rotation={[-Math.PI / 2, 0, 0]}
       castShadow
@@ -31,7 +30,7 @@ function DuckModel({ scale = 0.01, position = [0,-1,0]}) {
 export default function StlViewer({
   autoRotate = false,
   controls = true,
-  scale = 0.05,
+  scale = 0.05
 }) {
   return (
     <div style={{ width: '100%', height: '100%', backgroundColor: '#0a0a0a' }}>
@@ -53,7 +52,7 @@ export default function StlViewer({
         <Environment preset="city" />
 
         <Suspense fallback={<Html center></Html>}>
-          <Center top>
+          <Center>
             <DuckModel scale={scale} />
           </Center>
 
