@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'; /* 👈 useEffect 추가! */
 import { BrowserRouter, Routes, Route, useNavigate } from 'react-router-dom';
 import Home from './pages/Home';
+import Projects from './pages/Projects';
 import Punggyeong from './pages/Punggyeong';
 import Contact from './pages/Contact';
 import LoadingScreen from './LoadingScreen';
@@ -42,13 +43,15 @@ function AppContent() {
       </header>
 
       <nav className={`main-nav ${isMenuOpen ? 'open' : ''}`}>
-        <span onClick={() => goTo('/')}>PROJECTS</span>
+        <span onClick={() => goTo('/')}>HOME</span>
+        <span onClick={() => goTo('/projects')}>PROJECTS</span>
         <span onClick={() => goTo('/contact')}>CONTACT</span>
       </nav>
 
       <div className="portfolio-container">
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/projects" element={<Projects />} />
           <Route path="/punggyeong" element={<Punggyeong />} />
           <Route path="/contact" element={<Contact />} />
         </Routes>
