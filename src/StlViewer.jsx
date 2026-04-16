@@ -8,6 +8,10 @@ function DuckModel({ scale = 0.01 }) {
   const fileUrl = import.meta.env.BASE_URL + 'RubberDuck.stl';
   const geometry = useLoader(STLLoader, fileUrl);
 
+  React.useEffect(() => {
+    geometry.computeVertexNormals(); // ← 이 줄 추가 강추!
+  }, [geometry]);
+
   return (
     <mesh
       geometry={geometry}
@@ -30,7 +34,7 @@ function DuckModel({ scale = 0.01 }) {
 export default function StlViewer({
   autoRotate = false,
   controls = true,
-  scale = 0.05
+  scale = 0.05,
 }) {
   return (
     <div style={{ width: '100%', height: '100%', backgroundColor: '#0a0a0a' }}>
