@@ -1,21 +1,20 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>OhLeeOhLee</title>
-    
+
     <script>
-      (function() {
+      (function () {
         var redirect = sessionStorage.redirect;
-        delete sessionStorage.redirect; // 메모장 지우기
+        delete sessionStorage.redirect;
         if (redirect && redirect != location.href) {
-          // 브라우저 방문 기록을 건드리지 않고 주소창만 싹 바꿔치기합니다.
           window.history.replaceState(null, null, redirect);
         }
       })();
     </script>
-    </head>
+  </head>
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>

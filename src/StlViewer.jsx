@@ -23,7 +23,7 @@ function DuckModel({ scale = 0.01 }) {
     >
       <meshStandardMaterial
         color="#ffcc00"
-        roughness={0.05} // 광택 극대화
+        roughness={0.005} // 광택 극대화
         metalness={0.3} // 빛 반사 효과
       />
     </mesh>
