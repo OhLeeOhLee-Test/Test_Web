@@ -8,7 +8,7 @@ export default function Punggyeong() {
 
   return (
     <main className="detail-view">
-      <button className="back-btn" onClick={() => navigate('/')}>
+      <button className="back-btn" onClick={() => navigate('/projects')}>
         ← 뒤로 가기
       </button>
 

@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from 'react'; /* 👈 useEffect 추가! */
+import React, { useState, useEffect } from 'react';
 import { BrowserRouter, Routes, Route, useNavigate } from 'react-router-dom';
 import Home from './pages/Home';
 import Projects from './pages/Projects';
 import Punggyeong from './pages/Projects/Punggyeong';
+import Web from './pages/Projects/Web';
 import Contact from './pages/Contact';
 import LoadingScreen from './LoadingScreen';
 import './App.css';
@@ -53,6 +54,7 @@ function AppContent() {
           <Route path="/" element={<Home />} />
           <Route path="/projects" element={<Projects />} />
           <Route path="/punggyeong" element={<Punggyeong />} />
+          <Route path="/web" element={<Web />} />
           <Route path="/contact" element={<Contact />} />
         </Routes>
       </div>

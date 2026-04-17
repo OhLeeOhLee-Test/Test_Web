@@ -21,10 +21,18 @@ export default function Projects() {
           </div>
         </div>
 
+        <div className="project-card" onClick={() => navigate('/web')}>
+          <div className="card-image">🌐</div>
+          <div className="card-text">
+            <h3>Engineering Portfolio Web</h3>
+            <p>React 기반의 연구 기록 및 데이터 시각화 시스템</p>
+          </div>
+        </div>
+
         <div className="project-card disabled">
           <div className="card-image">⏳</div>
           <div className="card-text">
-            <h3>Project 02</h3>
+            <h3>Project 03</h3>
             <p>준비 중</p>
           </div>
         </div>
