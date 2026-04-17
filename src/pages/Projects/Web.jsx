@@ -25,7 +25,7 @@ function ComputerModel() {
         >
           <iframe
             title="Embedded Portfolio"
-            src="/"
+            src="/Test_Web/"
             style={{
               width: '1024px', // 가상 브라우저의 가로 해상도
               height: '680px', // 가상 브라우저의 세로 해상도
