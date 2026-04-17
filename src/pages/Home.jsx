@@ -59,7 +59,7 @@ export default function Home() {
           // progress가 1일 때(끝까지 내렸을 때) 90vw(오른쪽 끝)에 도달하도록 설정
           style={{ left: `${scrollProgress * 90}%` }}
         >
-          OhLee
+          🦆
         </div>
       </div>
 
