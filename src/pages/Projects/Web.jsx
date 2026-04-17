@@ -4,50 +4,34 @@ import { Canvas } from '@react-three/fiber';
 import { OrbitControls, Html } from '@react-three/drei';
 import './Web.css';
 
-// 🖥️ 1. 3D 컴퓨터 모형 부품 설계
-function ComputerModel() {
+// 🖥️ 1. 모니터 껍데기를 없앤 '공중 부양 스크린'
+function FloatingScreen() {
   return (
-    // 전체 모형을 살짝 비틀어서 얼짱 각도(-25도)로 보여줍니다.
-    <group rotation={[0, -Math.PI / 7, 0]}>
-      {/* 📺 모니터 본체 */}
-      <mesh position={[0, 0.5, 0]}>
-        {/* 가로 3.2, 세로 2.2, 두께 0.1짜리 납작한 상자 */}
-        <boxGeometry args={[3.2, 2.2, 0.1]} />
-        <meshStandardMaterial color="#2a2a2a" roughness={0.8} />
-
-        {/* ⭐️ 마법의 부품: 실제 웹사이트를 띄우는 HTML 레이어 */}
-        {/* 모니터 표면보다 아주 살짝 앞(0.06)에 배치해서 파묻히지 않게 합니다. */}
-        <Html
-          position={[0, 0, 0.06]}
-          transform
-          distanceFactor={1.3} // 화면 크기 배율 조절
-          occlude // 모니터 뒤로 돌리면 안 보이게 설정
-        >
-          <iframe
-            title="Embedded Portfolio"
-            src={import.meta.env.BASE_URL}
-            style={{
-              width: '1024px', // 가상 브라우저의 가로 해상도
-              height: '680px', // 가상 브라우저의 세로 해상도
-              border: 'none',
-              borderRadius: '8px', // 화면 모서리를 살짝 둥글게
-              background: '#fff',
-            }}
-          />
-        </Html>
-      </mesh>
-
-      {/* 🗼 모니터 기둥 */}
-      <mesh position={[0, -0.8, -0.05]}>
-        <cylinderGeometry args={[0.1, 0.1, 0.6]} />
-        <meshStandardMaterial color="#444" />
-      </mesh>
-
-      {/* 🥏 모니터 받침대 */}
-      <mesh position={[0, -1.1, -0.05]}>
-        <cylinderGeometry args={[0.6, 0.6, 0.05]} />
-        <meshStandardMaterial color="#2a2a2a" />
-      </mesh>
+    // 화면을 살짝 비틀어서 3D 공간에 있다는 걸 보여줍니다 (-15도)
+    <group rotation={[0, -Math.PI / 12, 0]}>
+      
+      {/* ⭐️ 모니터 본체(mesh), 기둥, 받침대 다 갖다 버렸습니다! */}
+      
+      <Html
+        position={[0, 0, 0]}  // 이제 허공이 기준이므로 0에 둡니다.
+        transform 
+        distanceFactor={1.5}  // 화면 크기 (필요에 따라 조절하세요)
+        // 본체가 없으므로 뒤로 숨기는 occlude 속성도 지웠습니다.
+      >
+        <iframe
+          title="Embedded Portfolio"
+          src={import.meta.env.BASE_URL}
+          style={{
+            width: '1024px',
+            height: '680px',
+            border: 'none',
+            borderRadius: '16px', /* 모서리를 둥글게 깎으면 태블릿처럼 예뻐집니다 */
+            background: '#fff',
+            /* ⭐️ 핵심: 공중에 뜬 느낌을 극대화하기 위해 '그림자'를 강하게 줍니다 */
+            boxShadow: '0px 30px 60px rgba(0, 0, 0, 0.6)' 
+          }}
+        />
+      </Html>
     </group>
   );
 }
@@ -73,7 +57,7 @@ export default function Web() {
           <directionalLight position={[10, 10, 5]} intensity={1.5} />
 
           {/* 아까 만든 컴퓨터 조립 */}
-          <ComputerModel />
+          <FloatingScreen />
 
           {/* 마우스 조작 부품 (확대/축소, 회전 가능) */}
           <OrbitControls enablePan={false} minDistance={2} maxDistance={8} />
