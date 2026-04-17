@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'; /* 👈 useEffect 추가! */
 import { BrowserRouter, Routes, Route, useNavigate } from 'react-router-dom';
 import Home from './pages/Home';
 import Projects from './pages/Projects';
-import Punggyeong from './pages/Punggyeong';
+import Punggyeong from './pages/Projects/Punggyeong';
 import Contact from './pages/Contact';
 import LoadingScreen from './LoadingScreen';
 import './App.css';
