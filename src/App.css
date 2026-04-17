@@ -2,6 +2,22 @@
 body { background-color: #050505; color: #fff; }
 .app-wrapper { min-height: 100vh; display: flex; flex-direction: column; }
 
+#root {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  max-width: none !important; /* 강제로 구속 해제 */
+  text-align: left; /* 중앙 정렬 속성도 초기화 */
+}
+
+body {
+  margin: 0;
+  display: block; /* Vite 기본값이 flex인 경우가 있어 일반 블록으로 변경 */
+  place-items: unset;
+  min-width: unset;
+  min-height: 100vh;
+}
+
 /* 헤더 및 네비게이션 */
 .main-header { display: flex; justify-content: space-between; align-items: center; padding: 20px 40px; background-color: rgba(5, 5, 5, 0.9); border-bottom: 1px solid #222; position: sticky; top: 0; z-index: 100; backdrop-filter: blur(8px); }
 .logo { font-weight: 700; letter-spacing: 3px; cursor: pointer; font-size: 18px; }
