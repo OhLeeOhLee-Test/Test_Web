@@ -24,14 +24,6 @@ export default function Home() {
     <main className="hero-page-wrapper">
       {/* ⭐️ 1. 메인 글씨 영역: 화면에 꽉 차게 고정됩니다. */}
       <section className="fixed-hero-content">
-
-<div style={{ textAlign: 'center', marginTop: '50px' }}>
-  <img 
-    src="https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https://ohleeohlee.github.io/portfolio&count_bg=%23FFCC00&title_bg=%23111111&icon=&icon_color=%23E7E7E7&title=VISITORS&edge_flat=false" 
-    alt="Hits" 
-  />
-</div>
-        
         <div className="hero-content">
           <div className="hero-badge">AEROSPACE & MECHANICAL ENGINEERING</div>
           <h1 className="hero-title">
