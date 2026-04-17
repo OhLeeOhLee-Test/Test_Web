@@ -7,7 +7,6 @@ export default function Contact() {
 
   return (
     <main className="contact-view">
-      <button className="back-btn" onClick={() => navigate('/')}>← 홈으로</button>
       <h2>Profile & Contact</h2>
       
       <div className="profile-section">
