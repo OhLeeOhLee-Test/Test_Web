@@ -23,7 +23,7 @@ function ComputerModel() {
           {/* 실제 웹사이트를 띄우는 iframe */}
           <iframe
             title="Embedded Web"
-            src="/"
+            src="/Test_Web/"
             style={{
               width: '1024px',  // 실제 웹 가상 해상도
               height: '670px',
